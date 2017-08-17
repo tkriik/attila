@@ -18,6 +18,7 @@ main(Args) ->
                       fatal_format("Usage: attila <config_path>~n", [])
               end,
     InitialOptions = validate_entries(Entries),
+    check_required_options(InitialOptions),
     Options = enrich_with_defaults(InitialOptions),
     io:format("Valid options: ~p~n", [Options]),
     erlang:halt(0).
@@ -55,6 +56,20 @@ validate_initial_option(Key, Value, RequiredType, Options) ->
         error ->
             check_value(Key, Value, RequiredType, Options)
     end.
+
+%%% Required option checking
+
+check_required_options(Options) ->
+    RequiredKeys = [host],
+    lists:foreach(fun(RequiredKey) ->
+                          case maps:find(RequiredKey, Options) of
+                              {ok, _Value} ->
+                                  ok;
+                              error ->
+                                  fatal_format("Value missing for required option \"~p\"~n",
+                                               [RequiredKey])
+                          end
+                  end, RequiredKeys).
 
 %%% Option enrichment with defaults
 
