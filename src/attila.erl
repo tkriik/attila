@@ -51,7 +51,7 @@ validate_concurrency(Concurrency, Options) ->
 validate_initial_option(Key, Value, RequiredType, Options) ->
     case maps:find(Key, Options) of
         {ok, _PreviousValue} ->
-            fatal_format("Duplicate entry for ~p: ~p~n", [Key, Value]);
+            fatal_format("Duplicate entry for option \"~p\": ~p~n", [Key, Value]);
         error ->
             check_value(Key, Value, RequiredType, Options)
     end.
