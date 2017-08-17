@@ -1,5 +1,6 @@
 # Attila
-========
+
+Concurrent REST API endpoint load testing. Work in progress.
 
 ## Build
 --------
@@ -9,4 +10,4 @@
 ## Run
 --------
 
-    $ _build/default/bin/attila
+    $ _build/default/bin/attila <config_file>
